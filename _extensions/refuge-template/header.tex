@@ -1,0 +1,40 @@
+\usepackage{fontspec}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{caption}
+
+% Safer line spacing without setspace.sty
+\linespread{1.05}
+
+% Windows-safe font families (prefer Calibri, then Arial, else Latin Modern)
+\IfFontExistsTF{Calibri}{
+  \newfontfamily\AKRSans{Calibri}
+}{
+  \IfFontExistsTF{Arial}{
+    \newfontfamily\AKRSans{Arial}
+  }{
+    \newfontfamily\AKRSans{Latin Modern Sans}
+  }
+}
+\newfontfamily\AKRSerif{Latin Modern Roman}
+
+% Section formatting: keep it conservative (Word-like defaults)
+\titleformat{\section}{\AKRSans\bfseries\fontsize{14}{16}\selectfont}{}{0pt}{}
+\titlespacing*{\section}{0pt}{14pt}{8pt}
+
+\titleformat{\subsection}{\AKRSans\bfseries\fontsize{12}{14}\selectfont}{}{0pt}{}
+\titlespacing*{\subsection}{0pt}{12pt}{6pt}
+
+\titleformat{\subsubsection}{\AKRSans\itshape\fontsize{11}{13}\selectfont}{}{0pt}{}
+\titlespacing*{\subsubsection}{0pt}{10pt}{4pt}
+
+% Captions (simple, readable)
+\captionsetup{
+  font=small,
+  labelfont=normalfont,
+  textfont=normalfont,
+  justification=raggedright,
+  singlelinecheck=false
+}
+\captionsetup[table]{position=above, skip=6pt}
+\captionsetup[figure]{position=below, skip=6pt}

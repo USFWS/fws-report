@@ -1,0 +1,58 @@
+---
+title: |
+  | Report title line 1
+  | Report title line 2
+  | Report title line 3
+title-short: "Short title for headers"
+author:
+  - "LastName, F."
+  - "N. LastName"
+  - "I. LastName"
+year: 2026
+report-number: "01"
+
+fws-region: "Alaska"  # optional; if omitted, defaults to Alaska
+
+cover-image: "images/cover.jpg"
+cover-image-credit: "Photo Caption / FWS"
+cover-caption: "Image caption goes here"
+
+doi: "10.1234/unique-doi"
+
+format:
+    refuge-template-pdf: default
+---
+
+# Abstract
+
+Limit to 300 words.
+
+# Keywords
+
+Species names, locations, methods, analysis, interpretations (alphabetical order)
+
+# Introduction
+
+Introductory text...
+
+# Study Area
+
+A description of the study area...
+
+# Methods
+
+Describe methods...
+
+# Results
+
+Results text...
+
+# Discussion
+
+Discussion text...
+
+# Acknowledgements
+
+# Data availability
+
+# References

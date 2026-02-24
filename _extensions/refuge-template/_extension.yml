@@ -1,0 +1,23 @@
+title: "Alaska Refuge Report Series (PDF)"
+version: "0.2.0"
+quarto-required: ">=1.4.0"
+
+contributes:
+  formats:
+    pdf:
+      pdf-engine: lualatex
+      template: akr-template.tex
+      include-in-header: header.tex
+      documentclass: article
+      fontsize: 11pt
+      geometry:
+        - letterpaper
+        - margin=1in
+      toc: false
+      number-sections: false
+      colorlinks: true
+      linkcolor: black
+      urlcolor: black
+      citecolor: black
+      filters:
+        - filter.lua

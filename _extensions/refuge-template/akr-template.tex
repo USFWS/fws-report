@@ -1,0 +1,142 @@
+\documentclass[$if(fontsize)$$fontsize$$endif$]{article}
+
+$if(geometry)$
+\usepackage[$for(geometry)$$geometry$$sep$,$endfor$]{geometry}
+$endif$
+
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{microtype}
+\usepackage{fancyhdr}
+
+% Allow Quarto/Pandoc header includes (header.tex)
+$for(header-includes)$
+$header-includes$
+$endfor$
+
+% Portable image lookup: prefer ./images, then current working directory
+% (avoids hardcoding an extension folder name/path)
+\graphicspath{{_extensions/refuge-template/images/}{./}}
+
+% ---- No paragraph indents anywhere ----
+\setlength{\parindent}{0pt}
+% \setlength{\parskip}{0.6em} % optional
+
+\begin{document}
+
+% ---------------- Cover / Front matter page ----------------
+\thispagestyle{empty}
+
+% ---- TOP BANNER (cover page only): text + rules + right-justified logo ----
+% Top bar: thinner + aligned to margins (NOT full-bleed)
+\noindent\rule{\textwidth}{2pt}\par
+
+\vspace{6pt}
+
+% Agency lines (left) + FWS logo (right), aligned horizontally
+\noindent
+\begin{minipage}[c]{0.76\textwidth}
+  {\AKRSans\bfseries\fontsize{10}{10}\selectfont
+  U.S. Fish and Wildlife Service\par}
+  {\AKRSans\bfseries\fontsize{10}{10}\selectfont
+  U.S. Department of the Interior\par}
+  \vspace{10pt}
+  % Region line (only configurable metadata; defaults to Alaska)
+  {\AKRSans\bfseries\fontsize{10}{10}\selectfont
+  National Wildlife Refuge System – $if(fws-region)$$fws-region$$else$Alaska$endif$ Region\par}
+\end{minipage}
+\hfill
+\begin{minipage}[c]{0.20\textwidth}
+  \raggedleft
+  \includegraphics[height=0.7in,keepaspectratio]{_extensions/refuge-template/images/fws_logo.eps}
+\end{minipage}
+
+\vspace{6pt}
+
+% Single divider line UNDER the region line, aligned to margins
+\noindent\rule{\textwidth}{1pt}\par
+\vspace{16pt}
+
+% ---------------- Cover content ----------------
+
+% Top line (series + year/report#)
+\noindent
+{\AKRSans\fontsize{11}{13}\selectfont
+Alaska Refuge Report
+$if(year)$$year$$else$YYYY$endif$-REPORT \#
+$if(year)$$year$$else$YYYY$endif$-$if(report-number)$$report-number$$else$NN$endif$
+}\par
+\vspace{14pt}
+
+% Title: multiline when starter.qmd uses title: | ...
+$if(title)$
+{\AKRSans\bfseries\fontsize{20}{24}\selectfont
+$title$
+}\par
+\vspace{8pt}
+$endif$
+
+% Authors
+$if(author-line)$
+{\AKRSans\fontsize{12}{14}\selectfont $author-line$}\par
+\vspace{10pt}
+$endif$
+
+% Cover image (full text width)
+$if(cover-image)$
+\noindent\includegraphics[width=\textwidth]{$cover-image$}\par
+$endif$
+
+$if(cover-image-credit)$
+{\AKRSans\fontsize{8}{10}\selectfont\noindent $cover-image-credit$}\vspace{-2pt}\par
+$endif$
+
+% --- FORCE PAGE BREAK AFTER COVER PHOTO CAPTION ---
+\clearpage
+\thispagestyle{empty}
+
+% Series boilerplate + disclaimer + how-to-cite
+{\AKRSerif\fontsize{10.5}{13}\selectfont
+The Alaska Refuge Report Series is used to disseminate information and analysis about natural resources and related topics concerning lands managed by the National Wildlife Refuge System in Alaska. The series supports the advancement of science and informed decision-making by publishing scientific findings that may be ongoing or too limited for journal publication but provide valuable information or interpretations to the field of study.
+
+\vspace{12pt}
+Manuscripts in the series receive an appropriate level of peer review to ensure that the information is scientifically credible, technically accurate, appropriately written for the intended audience, and designed and published in a professional manner.
+
+\vspace{12pt}
+Disclaimer: The use of trade names of commercial products in this report does not constitute endorsement or recommendation for use by the federal government.
+
+\vspace{12pt}
+
+% ---------------- ON THE COVER (optional) ----------------
+$if(cover-caption)$
+\thispagestyle{empty}
+{\AKRSans\bfseries\fontsize{12}{14}\selectfont ON THE COVER}\par
+\vspace{8pt}
+{\AKRSerif\fontsize{11}{14}\selectfont $cover-caption$}\par
+$if(cover-image-credit)$
+\vspace{6pt}
+{\AKRSerif\fontsize{11}{14}\selectfont $cover-image-credit$}\par
+$endif$
+\clearpage
+$else$
+$if(cover-image-credit)$
+\thispagestyle{empty}
+{\AKRSans\bfseries\fontsize{12}{14}\selectfont ON THE COVER}\par
+\vspace{8pt}
+{\AKRSerif\fontsize{11}{14}\selectfont $cover-image-credit$}\par
+\clearpage
+$endif$
+$endif$
+
+% ---------------- Body ----------------
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead[L]{\AKRSans\fontsize{9}{11}\selectfont Alaska Refuge Report $if(year)$$year$$else$YYYY$endif$-$if(report-number)$$report-number$$else$NN$endif$}
+\fancyhead[R]{\AKRSans\fontsize{9}{11}\selectfont $if(title-short)$$title-short$$else$$title$$endif$}
+\fancyfoot[C]{\AKRSans\fontsize{9}{11}\selectfont \thepage}
+
+$body$
+
+\end{document}
