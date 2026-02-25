@@ -22,6 +22,12 @@ What you get:
 - Running headers and Word-like heading styles
 - Citeproc bibliography under # References
 
+### Example output
+
+Rendered PDF cover page:
+
+<img src="images/cover_page.png" alt="Example fws-report PDF cover page showing the FWS banner, report number, multi-line title, authors, and cover photo with credit" width="600">
+
 ## Usage
 
 Depending on your use case, here are some [Quarto CLI](https://quarto.org/)
