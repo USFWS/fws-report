@@ -25,4 +25,4 @@ NEWS.html
 /.quarto/
 **/*.quarto_ipynb
 
-*.pdf
+template.pdf
