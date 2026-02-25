@@ -9,6 +9,9 @@ $endif$
 \usepackage{xcolor}
 \usepackage{microtype}
 \usepackage{fancyhdr}
+\usepackage{xstring}
+\usepackage{xurl}
+\usepackage{hanging}
 
 % Allow Quarto/Pandoc header includes (header.tex)
 $for(header-includes)$
@@ -23,6 +26,41 @@ $endfor$
 \setlength{\parindent}{0pt}
 % \setlength{\parskip}{0.6em} % optional
 
+% One-line citation-safe: strips pipes and flattens common line breaks
+\DeclareRobustCommand{\TitleNoPipesOneLine}[1]{%
+  \StrSubstitute{#1}{| }{}[\tmpTitleA]%
+  \StrSubstitute{\tmpTitleA}{|}{}[\tmpTitleB]%
+  \StrSubstitute{\tmpTitleB}{\\}{ }[\tmpTitleC]%
+  \StrSubstitute{\tmpTitleC}{\newline}{ }[\tmpTitleD]%
+  \tmpTitleD%
+}
+
+% --- Pandoc citeproc / CSL bibliography support (required for References) ---
+$if(csl-refs)$
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+
+\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
+ {%
+  \begin{list}{}%
+   {%
+    \setlength{\leftmargin}{\cslhangindent}%
+    \setlength{\itemindent}{-\cslhangindent}%
+    \setlength{\itemsep}{#2\baselineskip}%
+    \setlength{\parsep}{0pt}%
+   }%
+ }%
+ {\end{list}}
+
+\newcommand{\CSLBlock}[1]{#1\par}
+\newcommand{\CSLLeftMargin}[1]{\item[{\parbox[t]{\csllabelwidth}{#1}}]}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth-\csllabelwidth}{#1}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+$endif$
+% --- end CSL support ---
+
 \begin{document}
 
 % ---------------- Cover / Front matter page ----------------
@@ -31,7 +69,6 @@ $endfor$
 % ---- TOP BANNER (cover page only): text + rules + right-justified logo ----
 % Top bar: thinner + aligned to margins (NOT full-bleed)
 \noindent\rule{\textwidth}{2pt}\par
-
 \vspace{6pt}
 
 % Agency lines (left) + FWS logo (right), aligned horizontally
@@ -43,8 +80,8 @@ $endfor$
   U.S. Department of the Interior\par}
   \vspace{10pt}
   % Region line (only configurable metadata; defaults to Alaska)
-  {\AKRSans\bfseries\fontsize{10}{10}\selectfont
-  National Wildlife Refuge System – $if(fws-region)$$fws-region$$else$Alaska$endif$ Region\par}
+{\AKRSans\bfseries\fontsize{10}{10}\selectfont
+$if(fws-program)$$fws-program$$else$National Wildlife Refuge System$endif$ – $if(fws-region)$$fws-region$$else$Alaska$endif$ Region\par}
 \end{minipage}
 \hfill
 \begin{minipage}[c]{0.20\textwidth}
@@ -63,13 +100,12 @@ $endfor$
 % Top line (series + year/report#)
 \noindent
 {\AKRSans\fontsize{11}{13}\selectfont
-Alaska Refuge Report
-$if(year)$$year$$else$YYYY$endif$-REPORT \#
+$if(fws-station)$$fws-station$$endif$ Report \#
 $if(year)$$year$$else$YYYY$endif$-$if(report-number)$$report-number$$else$NN$endif$
 }\par
 \vspace{14pt}
 
-% Title: multiline when starter.qmd uses title: | ...
+% Title (RAW title metadata)
 $if(title)$
 {\AKRSans\bfseries\fontsize{20}{24}\selectfont
 $title$
@@ -92,21 +128,40 @@ $if(cover-image-credit)$
 {\AKRSans\fontsize{8}{10}\selectfont\noindent $cover-image-credit$}\vspace{-2pt}\par
 $endif$
 
-% --- FORCE PAGE BREAK AFTER COVER PHOTO CAPTION ---
+% Page break
 \clearpage
+
 \thispagestyle{empty}
 
 % Series boilerplate + disclaimer + how-to-cite
 {\AKRSerif\fontsize{10.5}{13}\selectfont
-The Alaska Refuge Report Series is used to disseminate information and analysis about natural resources and related topics concerning lands managed by the National Wildlife Refuge System in Alaska. The series supports the advancement of science and informed decision-making by publishing scientific findings that may be ongoing or too limited for journal publication but provide valuable information or interpretations to the field of study.
+This report is used to disseminate information and analysis about natural resources and related topics concerning lands managed by the U.S. Fish and Wildlife Service. This report supports the advancement of science and informed decision-making by publishing scientific findings that may be ongoing or too limited for journal publication but provide valuable information or interpretations to the field of study.
 
 \vspace{12pt}
-Manuscripts in the series receive an appropriate level of peer review to ensure that the information is scientifically credible, technically accurate, appropriately written for the intended audience, and designed and published in a professional manner.
+Manuscripts receive an appropriate level of peer review to ensure that the information is scientifically credible, technically accurate, appropriately written for the intended audience, and designed and published in a professional manner.
 
 \vspace{12pt}
 Disclaimer: The use of trade names of commercial products in this report does not constitute endorsement or recommendation for use by the federal government.
 
+\begingroup
+
+\endgroup
+
+% Citation
 \vspace{12pt}
+\noindent\textbf{How to cite this report:}\par
+
+\begin{hangparas}{2em}{1}
+\noindent
+$if(cite-author-line)$$cite-author-line$$else$LastName, F.$endif$\space
+$if(year)$$year$.$else$Year.$endif$\space
+$if(title)$\TitleNoPipesOneLine{$title$}.$else$Title.$endif$\space
+U.S. Fish and Wildlife Service, $if(fws-program)$$fws-program$$else$National Wildlife Refuge System$endif$$if(location)$ $location$$endif$.$if(fws-station)$ $fws-station$:$endif$\space
+Report $if(year)$$year$$else$YYYY$endif$-$if(report-number)$$report-number$$else$NN$endif$.\space
+$if(doi)$\url{https://doi.org/$doi$}$else$\url{https://doi.org/\{UNIQUEDOI\}}$endif$.
+\end{hangparas}
+
+\clearpage
 
 % ---------------- ON THE COVER (optional) ----------------
 $if(cover-caption)$
@@ -133,8 +188,11 @@ $endif$
 \pagestyle{fancy}
 \fancyhf{}
 \renewcommand{\headrulewidth}{0pt}
-\fancyhead[L]{\AKRSans\fontsize{9}{11}\selectfont Alaska Refuge Report $if(year)$$year$$else$YYYY$endif$-$if(report-number)$$report-number$$else$NN$endif$}
-\fancyhead[R]{\AKRSans\fontsize{9}{11}\selectfont $if(title-short)$$title-short$$else$$title$$endif$}
+\fancyhead[L]{\AKRSans\fontsize{9}{11}\selectfont $if(fws-station)$$fws-station$$endif$ Report $if(year)$$year$$else$YYYY$endif$-$if(report-number)$$report-number$$else$NN$endif$}
+
+% Right header: title-short if present; otherwise nothing
+\fancyhead[R]{\AKRSans\fontsize{9}{11}\selectfont $if(title-short)$$title-short$$endif$}
+
 \fancyfoot[C]{\AKRSans\fontsize{9}{11}\selectfont \thepage}
 
 $body$

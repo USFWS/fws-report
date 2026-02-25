@@ -5,13 +5,16 @@ title: |
   | Report title line 3
 title-short: "Short title for headers"
 author:
-  - "LastName, F."
-  - "N. LastName"
-  - "I. LastName"
+  - "Jane Biologist"
+  - "Joe Botanist"
+  - "Jeff Ecologist"
 year: 2026
 report-number: "01"
 
+fws-program: "National Wildlife Refuge System"
+fws-station: "Kodiak National Wildlife Refuge"
 fws-region: "Alaska"  # optional; if omitted, defaults to Alaska
+location: "Kodiak, Alaska"
 
 cover-image: "images/cover.jpg"
 cover-image-credit: "Photo Caption / FWS"
@@ -20,7 +23,10 @@ cover-caption: "Image caption goes here"
 doi: "10.1234/unique-doi"
 
 format:
-    refuge-template-pdf: default
+  refuge-template-pdf: default
+    
+bibliography: bib/bibliography.bib  # Path to bibliography files
+csl: bib/the-journal-of-wildlife-management.csl   # Path to reference style file
 ---
 
 # Abstract
@@ -41,7 +47,7 @@ A description of the study area...
 
 # Methods
 
-Describe methods...
+Describe methods... We used [@R].
 
 # Results
 
@@ -56,3 +62,6 @@ Discussion text...
 # Data availability
 
 # References
+
+::: {#refs}
+:::

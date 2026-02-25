@@ -38,3 +38,33 @@
 }
 \captionsetup[table]{position=above, skip=6pt}
 \captionsetup[figure]{position=below, skip=6pt}
+
+% --- Refuge template additions (used by frontmatter.tex) ---
+\usepackage{fancyhdr}
+\usepackage{xstring}
+\usepackage{xurl}
+\usepackage{hanging}
+
+% Portable image lookup: prefer extension images, then project
+\graphicspath{{_extensions/refuge-template/images/}{./}}
+
+% ---- No paragraph indents anywhere ----
+\setlength{\parindent}{0pt}
+
+% One-line citation-safe: strips pipes and flattens common line breaks
+\DeclareRobustCommand{\TitleNoPipesOneLine}[1]{%
+  \StrSubstitute{#1}{| }{}[\tmpTitleA]%
+  \StrSubstitute{\tmpTitleA}{|}{}[\tmpTitleB]%
+  \StrSubstitute{\tmpTitleB}{\\}{ }[\tmpTitleC]%
+  \StrSubstitute{\tmpTitleC}{\newline}{ }[\tmpTitleD]%
+  \tmpTitleD%
+}
+
+% Suppress default title/author block (we use custom frontmatter instead)
+\AtBeginDocument{%
+  \makeatletter
+  \renewcommand{\maketitle}{}%
+  \makeatother
+}
+
+% --- end refuge template additions ---
