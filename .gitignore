@@ -26,6 +26,3 @@ NEWS.html
 **/*.quarto_ipynb
 
 *.pdf
-
-images/
-
