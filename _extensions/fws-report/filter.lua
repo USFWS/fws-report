@@ -8,8 +8,26 @@
 --      \TitleShort, \AuthorLine, \CiteAuthorLine, \ReportYear, \ReportNumber,
 --      \FwsProgram, \FwsRegion, \FwsStation, \Location,
 --      \CoverImage, \CoverImageCredit, \CoverCaption, \Doi
+--      \FwsReportFontsPath, \FwsReportImagesPath
 
 local stringify = pandoc.utils.stringify
+
+-- ---------------- Path helpers ----------------
+
+local function dirname(p)
+  if not p or p == "" then return "" end
+  p = p:gsub("\\", "/")
+  p = p:gsub("/+$", "")
+  return (p:gsub("/[^/]*$", ""))
+end
+
+local function self_dir()
+  local src = debug.getinfo(1, "S").source or ""
+  if src:sub(1, 1) == "@" then src = src:sub(2) end
+  return dirname(src)
+end
+
+-- ---------------- Text helpers ----------------
 
 local function tex_escape(s)
   s = s or ""
@@ -24,6 +42,7 @@ local function tex_escape(s)
 end
 
 local function strip_pipe_prefix(line)
+  line = (line or "")
   line = line:gsub("^%s*", "")
   line = line:gsub("^|%s*", "")
   return line
@@ -49,7 +68,6 @@ local function lines_from_inlines(inls)
 end
 
 local function title_to_lines(mt)
-  -- If MetaString comes through as Lua string (may contain \n)
   if type(mt) == "string" then
     local out = {}
     mt = mt:gsub("\r\n", "\n"):gsub("\r", "\n")
@@ -61,9 +79,10 @@ local function title_to_lines(mt)
   end
 
   if type(mt) == "table" then
-    -- Pandoc MetaInlines is iterable; do NOT rely on .c
     if mt.t == "MetaInlines" then
-      return lines_from_inlines(mt)
+      -- some pandoc builds store in .c, some are directly iterable
+      local inls = mt.c or mt
+      return lines_from_inlines(inls)
     end
 
     if mt.t == "MetaBlocks" then
@@ -75,7 +94,6 @@ local function title_to_lines(mt)
       return { stringify(mt) }
     end
 
-    -- Sometimes meta.title arrives already as an Inlines list
     if mt[1] and mt[1].t then
       return lines_from_inlines(mt)
     end
@@ -91,7 +109,7 @@ local function parse_author(name)
   if #parts == 0 then return { first_initial = "", last = "" } end
   local first = parts[1]
   local last  = parts[#parts]
-  local initial = first:sub(1,1)
+  local initial = first:sub(1, 1)
   if initial ~= "" then initial = initial .. "." end
   return { first_initial = initial, last = last }
 end
@@ -102,19 +120,58 @@ local function ensure_metalist(x)
   return pandoc.MetaList({ x })
 end
 
+-- ---------------- LaTeX emitters ----------------
+
 local function latex_define(name, value)
-  -- Escapes value (safe for most macros)
   return pandoc.RawBlock("latex",
     string.format("\\providecommand{\\%s}{%s}", name, tex_escape(value or "")))
 end
 
 local function latex_define_raw(name, value)
-  -- ALWAYS override (prevents stale definitions from winning)
   return pandoc.RawBlock("latex",
     string.format("\\gdef\\%s{%s}", name, value or ""))
 end
 
+local function latex_define_detokenized(name, value)
+  return pandoc.RawBlock("latex",
+    string.format("\\gdef\\%s{\\detokenize{%s}}", name, value or ""))
+end
+
+local function latex_raw(s)
+  return pandoc.RawBlock("latex", s)
+end
+
+-- ---------------- Main Meta filter ----------------
+
 function Meta(meta)
+  local hi = ensure_metalist(meta["header-includes"])
+  local function get(key) return meta[key] and stringify(meta[key]) or "" end
+
+  -- ---- compute extension-root-relative paths ----
+  local extdir = self_dir():gsub("\\", "/")
+  local fonts_path  = (extdir .. "/fonts/"):gsub("\\", "/")
+  local images_path = (extdir .. "/images/"):gsub("\\", "/")
+
+  -- Define path macros (portable)
+  hi:insert(pandoc.MetaBlocks({ latex_define_detokenized("FwsReportFontsPath", fonts_path) }))
+  hi:insert(pandoc.MetaBlocks({ latex_define_detokenized("FwsReportImagesPath", images_path) }))
+
+  -- Set main font AFTER the path macro exists (don’t do this in header.tex)
+  -- Keep to UprightFont only to avoid file-not-found if user doesn’t ship all styles.
+  hi:insert(pandoc.MetaBlocks({ latex_raw([[
+% --- fws-report: set Roboto Condensed as the main font (portable path) ---
+\setmainfont[
+  Path=\FwsReportFontsPath,
+  UprightFont=RobotoCondensed-Regular.ttf
+]{}
+]] ) }))
+
+  -- Make extension images discoverable (portable)
+  hi:insert(pandoc.MetaBlocks({ latex_raw([[
+% --- fws-report: portable image lookup ---
+\graphicspath{{\FwsReportImagesPath}{./}}
+]] ) }))
+
   -- ---- authors ----
   local a = meta["author"]
   local names = {}
@@ -146,28 +203,25 @@ function Meta(meta)
     meta["cite-author-line"] = table.concat(cite_parts, ", ")
   end
 
--- ---- title for cover (multiline) + one-line version ----
-local cover_title = ""
-local cover_title_one_line = ""
-if meta.title then
-  local lines = title_to_lines(meta.title)
-  local escaped_lines = {}
-  for i = 1, #lines do
-    local ln = strip_pipe_prefix(lines[i])
-    escaped_lines[#escaped_lines + 1] = tex_escape(ln)
+  -- ---- title macros ----
+  local cover_title = ""
+  local cover_title_one_line = ""
+
+  if meta.title then
+    local lines = title_to_lines(meta.title)
+    local escaped_lines = {}
+    for i = 1, #lines do
+      local ln = strip_pipe_prefix(lines[i])
+      escaped_lines[#escaped_lines + 1] = tex_escape(ln)
+    end
+
+    cover_title = table.concat(escaped_lines, "\\\\\n")
+    cover_title_one_line = table.concat(escaped_lines, "\\space ")
+
+    cover_title_one_line = cover_title_one_line
+      :gsub("(%d)(%u)", "%1 %2")
+      :gsub("(%l)(%u)", "%1 %2")
   end
-  cover_title = table.concat(escaped_lines, "\\\\\n")
-  cover_title_one_line = table.concat(escaped_lines, "\\space ")
-
-  -- If we only got one "line" but it contains run-together boundaries, fix them.
-  cover_title_one_line = cover_title_one_line
-    :gsub("(%d)(%u)", "%1 %2")
-    :gsub("(%l)(%u)", "%1 %2")
-end
-
-  -- ---- push LaTeX macros into header-includes ----
-  local hi = ensure_metalist(meta["header-includes"])
-  local function get(key) return meta[key] and stringify(meta[key]) or "" end
 
   -- defaults
   local fws_program = get("fws-program")
@@ -176,6 +230,7 @@ end
   local fws_region = get("fws-region")
   if fws_region == "" then fws_region = "Alaska" end
 
+  -- Insert report macros
   hi:insert(pandoc.MetaBlocks({ latex_define_raw("CoverTitle", cover_title) }))
   hi:insert(pandoc.MetaBlocks({ latex_define_raw("CoverTitleOneLine", cover_title_one_line) }))
 
@@ -185,6 +240,7 @@ end
 
   hi:insert(pandoc.MetaBlocks({ latex_define("ReportYear", get("year")) }))
   hi:insert(pandoc.MetaBlocks({ latex_define("ReportNumber", get("report-number")) }))
+
   hi:insert(pandoc.MetaBlocks({ latex_define("FwsProgram", fws_program) }))
   hi:insert(pandoc.MetaBlocks({ latex_define("FwsRegion", fws_region) }))
   hi:insert(pandoc.MetaBlocks({ latex_define("FwsStation", get("fws-station")) }))

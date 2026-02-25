@@ -6,32 +6,14 @@
 % Safer line spacing without setspace.sty
 \linespread{1.05}
 
-% --- Roboto Condensed throughout (main document font) ---
-\setmainfont[
-  Path=_extensions/fws-report/fonts/,
-  UprightFont=RobotoCondensed-Regular.ttf,
-  ItalicFont=RobotoCondensed-Italic.ttf,
-  BoldFont=RobotoCondensed-Bold.ttf,
-  BoldItalicFont=RobotoCondensed-BoldItalic.ttf
-]{}
-
-% Optional alias for explicit condensed usage (banner/headings/etc.)
-\newfontfamily\FWSCondensed[
-  Path=_extensions/fws-report/fonts/,
-  UprightFont=RobotoCondensed-Regular.ttf,
-  ItalicFont=RobotoCondensed-Italic.ttf,
-  BoldFont=RobotoCondensed-Bold.ttf,
-  BoldItalicFont=RobotoCondensed-BoldItalic.ttf
-]{}
-
 % Section formatting: keep it conservative (Word-like defaults)
-\titleformat{\section}{\FWSCondensed\bfseries\fontsize{14}{16}\selectfont}{}{0pt}{}
+\titleformat{\section}{\bfseries\fontsize{14}{16}\selectfont}{}{0pt}{}
 \titlespacing*{\section}{0pt}{14pt}{8pt}
 
-\titleformat{\subsection}{\FWSCondensed\bfseries\fontsize{12}{14}\selectfont}{}{0pt}{}
+\titleformat{\subsection}{\bfseries\fontsize{12}{14}\selectfont}{}{0pt}{}
 \titlespacing*{\subsection}{0pt}{12pt}{6pt}
 
-\titleformat{\subsubsection}{\FWSCondensed\bfseries\fontsize{11}{13}\selectfont}{}{0pt}{}
+\titleformat{\subsubsection}{\bfseries\fontsize{11}{13}\selectfont}{}{0pt}{}
 \titlespacing*{\subsubsection}{0pt}{10pt}{4pt}
 
 % Captions (simple, readable)
@@ -50,9 +32,6 @@
 \usepackage{xstring}
 \usepackage{xurl}
 \usepackage{hanging}
-
-% Portable image lookup: prefer extension images, then project
-\graphicspath{{_extensions/fws-report/images/}{./}}
 
 % ---- No paragraph indents anywhere ----
 \setlength{\parindent}{0pt}
@@ -73,4 +52,4 @@
   \makeatother
 }
 
-% --- end fws-report template  ---
+% --- end fws-report template additions ---
