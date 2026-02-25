@@ -30,6 +30,8 @@ commands to get started.
 If you would like to add the fws-report extension to an existing directory:
 
 ```bash
+# In the Terminal:
+
 quarto add USFWS/fws-report
 # or
 quarto install extension USFWS/fws-report
@@ -42,6 +44,8 @@ option if you are starting a new project from scratch, since it will automatical
 create a new directory with all of the necessary scaffolding in one go. 
 
 ```bash
+# In the Terminal:
+
 quarto use template USFWS/fws-report
 ```
 
