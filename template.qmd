@@ -47,7 +47,7 @@ A description of the study area...
 
 # Methods
 
-Describe methods... We used [@R].
+A description of the methods... We used R [@R].
 
 # Results
 
@@ -60,6 +60,8 @@ Discussion text...
 # Acknowledgements
 
 # Data availability
+
+A link to the FWS-approved public data repository containing the data and code required to reproduce the results. 
 
 # References
 
