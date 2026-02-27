@@ -23,8 +23,6 @@ contributes:
       citecolor: black
 
       citeproc: true
-      
-      keep-tex: true
   
       filters:
         - filter.lua
