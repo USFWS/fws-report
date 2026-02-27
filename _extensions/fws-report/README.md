@@ -54,23 +54,21 @@ If you cite with `[@key]`, references will render under a `# References` heading
 ```yaml
 ---
 title: |
-  Report title line 1
-  Report title line 2
-  Report title line 3
+  | Report Title Line 1
+  | Report Title Line 2
+  | Report Title Line 3
 title-short: "Short title for headers"
-
 author:
   - "Jane Biologist"
   - "Joe Botanist"
   - "Jeff Ecologist"
-
 year: 2026
 report-number: "01"
 
-fws-program: "National Wildlife Refuge System"
-fws-region: "Alaska"
-fws-station: "Kodiak National Wildlife Refuge"
-location: "Kodiak, Alaska"
+fws-program: "National Wildlife Refuge System"  # Optional
+fws-station: "Kodiak National Wildlife Refuge"  # Optional
+fws-region: "Alaska"  # Optional; if omitted, defaults to Alaska
+location: "Kodiak, Alaska" # Optional
 
 cover-image: "images/cover.jpg"
 cover-image-credit: "Photo Caption / FWS"
@@ -78,12 +76,10 @@ cover-caption: "Image caption goes here"
 
 doi: "10.1234/unique-doi"
 
-bibliography:
-  - bib/bibliography.bib
-  - bib/packages.bib
-csl: bib/the-journal-of-wildlife-management.csl
-
 format:
   fws-report-pdf: default
+    
+bibliography: bib/bibliography.bib  # Path to bibliography files
+csl: bib/the-journal-of-wildlife-management.csl   # Path to reference style file
 ---
 ```

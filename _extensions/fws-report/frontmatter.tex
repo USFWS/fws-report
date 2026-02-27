@@ -22,7 +22,7 @@
 \begin{minipage}[t]{0.20\textwidth}
   \vspace{-12pt}
   \raggedleft
-  \includegraphics[height=0.5in,keepaspectratio]{\FwsReportImagesPath fws_logo.pdf}
+  \includegraphics[height=0.5in,keepaspectratio]{fws_logo.pdf}
 \end{minipage}
 
 % Bottom rule directly under the program/region line
@@ -81,7 +81,7 @@ Disclaimer: The use of trade names of commercial products in this report does no
 \noindent
 \ifx\CiteAuthorLine\empty LastName, F.\else \CiteAuthorLine\fi.\space
 \ifx\ReportYear\empty Year.\else \ReportYear.\fi\space
-\CoverTitleOneLine.\space
+\makeatletter{\begingroup\let\\\space\let\newline\space\@title\endgroup}\makeatother.\space
 Report \ReportYear-\ReportNumber.\space
 U.S. Fish and Wildlife Service,\space
 \FwsProgram,\space
@@ -98,27 +98,35 @@ U.S. Fish and Wildlife Service,\space
 \fi
 \end{hangparas}
 
-\clearpage
-
-% ---------------- ON THE COVER (optional) ----------------
 \ifx\CoverCaption\empty
   \ifx\CoverImageCredit\empty\else
   \thispagestyle{empty}
-  {\bfseries\fontsize{12}{14}\selectfont ON THE COVER}\par
-  \vspace{8pt}
-  \CoverImageCredit\par
-  \clearpage
+  \vspace*{\fill}
+  {%
+    \setlength{\parskip}{0pt}%
+    \setlength{\parindent}{0pt}%
+    {\bfseries\fontsize{12}{14}\selectfont ON THE COVER}\par
+    \vspace{3pt} % was 8pt
+    \CoverImageCredit\par
+  }%
   \fi
 \else
   \thispagestyle{empty}
-  {\bfseries\fontsize{12}{14}\selectfont ON THE COVER}\par
-  \vspace{8pt}
-  \CoverCaption\par
-  \ifx\CoverImageCredit\empty\else
-    \CoverImageCredit\par
-  \fi
-  \clearpage
+  \vspace*{\fill}
+  {%
+    \setlength{\parskip}{0pt}%
+    \setlength{\parindent}{0pt}%
+    {\bfseries\fontsize{12}{14}\selectfont ON THE COVER}\par
+    \vspace{3pt} % was 8pt
+    \CoverCaption\par
+    \ifx\CoverImageCredit\empty\else
+      \vspace{2pt}%
+      \CoverImageCredit\par
+    \fi
+  }%
 \fi
+
+\clearpage
 
 % ---------------- Body page style ----------------
 \pagestyle{fancy}

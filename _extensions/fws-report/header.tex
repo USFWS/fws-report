@@ -1,13 +1,17 @@
 \usepackage{fontspec}
 \usepackage{titlesec}
-\usepackage{booktabs}
 \usepackage{caption}
 
 % Safer line spacing without setspace.sty
 \linespread{1.05}
 
-% Section formatting: keep it conservative (Word-like defaults)
-\titleformat{\section}{\bfseries\fontsize{14}{16}\selectfont}{}{0pt}{}
+% Section formatting: ONLY # headings (\section): ALL CAPS + expanded tracking (~+1pt at 14pt)
+% fontspec LetterSpace is in 1/1000 em. Approx +1pt at 14pt: 1000/14 ≈ 71
+\newcommand{\FwsSectionStyle}[1]{%
+  {\RobotoBold\addfontfeatures{LetterSpace=10}\MakeUppercase{#1}}%
+}
+
+\titleformat{\section}{\bfseries\fontsize{14}{16}\selectfont}{}{0pt}{\FwsSectionStyle}
 \titlespacing*{\section}{0pt}{14pt}{8pt}
 
 \titleformat{\subsection}{\bfseries\fontsize{12}{14}\selectfont}{}{0pt}{}
@@ -29,21 +33,11 @@
 
 % --- fws-report template additions (used by frontmatter.tex) ---
 \usepackage{fancyhdr}
-\usepackage{xstring}
 \usepackage{xurl}
 \usepackage{hanging}
 
 % ---- No paragraph indents anywhere ----
 \setlength{\parindent}{0pt}
-
-% One-line citation-safe: strips pipes and flattens common line breaks
-\DeclareRobustCommand{\TitleNoPipesOneLine}[1]{%
-  \StrSubstitute{#1}{| }{}[\tmpTitleA]%
-  \StrSubstitute{\tmpTitleA}{|}{}[\tmpTitleB]%
-  \StrSubstitute{\tmpTitleB}{\\}{ }[\tmpTitleC]%
-  \StrSubstitute{\tmpTitleC}{\newline}{ }[\tmpTitleD]%
-  \tmpTitleD%
-}
 
 % Suppress default title/author block (we use custom frontmatter instead)
 \AtBeginDocument{%
@@ -51,5 +45,3 @@
   \renewcommand{\maketitle}{}%
   \makeatother
 }
-
-% --- end fws-report template additions ---

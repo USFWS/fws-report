@@ -29,21 +29,21 @@ bibliography: bib/bibliography.bib  # Path to bibliography files
 csl: bib/the-journal-of-wildlife-management.csl   # Path to reference style file
 ---
 
-# Abstract
+## Abstract
 
-Limit to 300 words.
+Limit to 300 words. 
 
-# Keywords
+## Keywords
 
-Species names, locations, methods, analysis, interpretations (alphabetical order)
+Species names, locations, methods, analysis, interpretations (*alphabetical order*)
 
-# Introduction
+---
 
-Introductory text...
+Introductory text, background material, appropriate literature review, and survey objectives. The default format for text body is double-spaced between paragraphs and single-space in the body of a paragraph. Do not indent the first line of a paragraph. Text is left-justified
 
 # Study Area
 
-A description of the study area...
+A description of the study area. Maps or figures are recommended. Include a compass arrow, legend, and scale bar in maps.
 
 # Methods
 
@@ -59,9 +59,13 @@ Discussion text...
 
 # Acknowledgements
 
+Include your appreciation of logistical support, funding sources, field technicians, managers, and others who contributed to the work.
+
 # Data availability
 
-A link to the FWS-approved public data repository containing the data and code required to reproduce the results. 
+All the raw data used in your report should be publicly-accessible, unless legally exempt (e.g., FOIA-exempt). Recommended boilerplate language for this section could read “The data presented in this report are available at {your data’s ServCat URL}”.
+
+\newpage
 
 # References
 
