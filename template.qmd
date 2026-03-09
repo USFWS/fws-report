@@ -21,6 +21,7 @@ doi: "10.1234/unique-doi"
 
 format:
   fws-report-docx: default
+  fws-report-pdf: default
     
 bibliography: bib/bibliography.bib  # Path to bibliography files
 csl: bib/the-journal-of-wildlife-management.csl   # Path to reference style file
