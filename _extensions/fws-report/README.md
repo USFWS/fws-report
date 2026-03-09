@@ -1,21 +1,62 @@
-# FWS Report Template (PDF) — Quarto extension
+# FWS Report Template (PDF and DOCX) — Quarto extension
 
-This Quarto **PDF format** extension provides an unofficial U.S. Fish and Wildlife Service (FWS) report layout.
+This Quarto extension provides an unofficial U.S. Fish and Wildlife Service (FWS) report layout for **PDF** and **DOCX** output.
 
 Highlights:
 
 - **Cover**: top banner (agency lines + logo), report number line, multi-line title, author list, cover image + right-justified credit, “How to cite this report” page, optional “On the Cover” page.
 - **Body**: conservative, Word-like heading and caption defaults.
-- **Tables/Figures**: `booktabs` tables; table captions above; figure captions below.
+- **Tables/Figures**: table captions above; figure captions below.
+- **References**: citeproc-supported citations and bibliography rendering in both PDF and DOCX.
+- **DOCX styling**: Word output uses the bundled `docx/reference.docx` file for paragraph and table styles.
 
 ## Use
 
-In your QMD front matter:
+In your QMD front matter, choose one or both formats.
+
+### PDF only
 
 ```yaml
 format:
   fws-report-pdf: default
 ```
+
+### DOCX only
+
+```yaml
+format:
+  fws-report-docx: default
+```
+
+### PDF and DOCX in the same document
+
+```yaml
+format:
+  fws-report-pdf: default
+  fws-report-docx: default
+```
+
+## Render from the command line
+
+Render a PDF only:
+
+```bash
+quarto render report.qmd --to fws-report-pdf
+```
+
+Render a DOCX only:
+
+```bash
+quarto render report.qmd --to fws-report-docx
+```
+
+Render both outputs in one call:
+
+```bash
+quarto render report.qmd
+```
+
+When both formats are listed in the document YAML, running `quarto render` without `--to` will render both outputs.
 
 ## Metadata fields
 
@@ -27,7 +68,7 @@ format:
 - `cover-image` — path to the cover image file (e.g., `images/cover.jpg`).
 
 ### Recommended
-- `title-short` — short title for running headers (if omitted, header can be blank).
+- `title-short` — short title for running headers.
 - `doi` — DOI suffix (e.g., `10.1234/unique-doi`); rendered as a `https://doi.org/...` URL.
 
 ### FWS program/station metadata (used in banner + citation)
@@ -43,11 +84,20 @@ format:
 - `cover-caption` — “On the Cover” text (shown on its own page if provided).
 
 ### References / citations (citeproc)
-If you cite with `[@key]`, references will render under a `# References` heading.
+If you cite with `@key` or `[@key]`, references will render under a `# References` heading in both formats.
 
 - `bibliography` — one or more `.bib` files (e.g., `bib/bibliography.bib`).
 - `csl` — CSL style file (e.g., `bib/the-journal-of-wildlife-management.csl`).
 - `reference-section-title` — defaults to `References` (can be overridden per document).
+
+Example inline citations:
+
+```markdown
+This report follows standard wildlife monitoring methods [@usfws2024].
+
+Narrative citation example: @smith2023 found that wetland occupancy increased
+after habitat restoration.
+```
 
 ## Example
 
@@ -68,7 +118,7 @@ report-number: "01"
 fws-program: "National Wildlife Refuge System"  # Optional
 fws-station: "Kodiak National Wildlife Refuge"  # Optional
 fws-region: "Alaska"  # Optional; if omitted, defaults to Alaska
-location: "Kodiak, Alaska" # Optional
+location: "Kodiak, Alaska"  # Optional
 
 cover-image: "images/cover.jpg"
 cover-image-credit: "Photo Caption / FWS"
@@ -78,8 +128,9 @@ doi: "10.1234/unique-doi"
 
 format:
   fws-report-pdf: default
-    
-bibliography: bib/bibliography.bib  # Path to bibliography files
-csl: bib/the-journal-of-wildlife-management.csl   # Path to reference style file
+  fws-report-docx: default
+
+bibliography: bib/bibliography.bib
+csl: bib/the-journal-of-wildlife-management.csl
 ---
 ```
