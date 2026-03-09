@@ -1,13 +1,14 @@
 \usepackage{fontspec}
 \usepackage{titlesec}
 \usepackage{caption}
+\usepackage{graphicx}
 \usepackage{fancyhdr}
+\usepackage{xurl}
+\usepackage{hanging}
 
-% Safer line spacing without setspace.sty
 \linespread{1.05}
 
-% Section formatting: ONLY # headings (\section): ALL CAPS + expanded tracking (~+1pt at 14pt)
-% fontspec LetterSpace is in 1/1000 em. Approx +1pt at 14pt: 1000/14 ≈ 71
+% Section formatting: ONLY # headings (\section): all caps with light tracking.
 \newcommand{\FwsSectionStyle}[1]{%
   {\RobotoBold\addfontfeatures{LetterSpace=10}\MakeUppercase{#1}}%
 }
@@ -18,10 +19,9 @@
 \titleformat{\subsection}{\bfseries\fontsize{12}{14}\selectfont}{}{0pt}{}
 \titlespacing*{\subsection}{0pt}{12pt}{6pt}
 
-\titleformat{\subsubsection}{\bfseries\fontsize{11}{13}\selectfont}{}{0pt}{}
+\titleformat{\subsubsection}{\itshape\fontsize{11}{13}\selectfont}{}{0pt}{}
 \titlespacing*{\subsubsection}{0pt}{10pt}{4pt}
 
-% Captions (simple, readable)
 \captionsetup{
   font=small,
   labelfont=normalfont,
@@ -32,15 +32,9 @@
 \captionsetup[table]{position=above, skip=6pt}
 \captionsetup[figure]{position=below, skip=6pt}
 
-% --- fws-report template additions (used by frontmatter.tex) ---
-\usepackage{fancyhdr}
-\usepackage{xurl}
-\usepackage{hanging}
-
-% ---- No paragraph indents anywhere ----
 \setlength{\parindent}{0pt}
 
-% Suppress default title/author block (we use custom frontmatter instead)
+% Suppress the default Pandoc title block; the extension supplies its own front matter.
 \AtBeginDocument{%
   \makeatletter
   \renewcommand{\maketitle}{}%

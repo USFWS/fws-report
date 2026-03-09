@@ -1,15 +1,12 @@
-% frontmatter.tex  (NO Pandoc $...$ variables!)
+% frontmatter.tex (no Pandoc $...$ variables)
 
 % ---------------- Cover / Front matter page ----------------
 \thispagestyle{empty}
 
 % ---- TOP BANNER (cover page only) ----
-
-% Top bar
 \noindent\rule{\textwidth}{6pt}\par
 \vspace{0pt}
 
-% Agency lines (left) + logo (right) aligned to the TOP
 \noindent
 \begin{minipage}[t]{0.76\textwidth}
   \vspace{-12pt}
@@ -25,38 +22,31 @@
   \includegraphics[height=0.5in,keepaspectratio]{fws_logo.pdf}
 \end{minipage}
 
-% Bottom rule directly under the program/region line
 \vspace{0pt}
 \noindent\rule{\textwidth}{1pt}\par
 \vspace{0pt}
 
 % ---------------- Cover content ----------------
-
-% Top line (station + year/report#)
 \noindent
 {\fontsize{11}{13}\selectfont
 \ifx\FwsStation\empty\else \FwsStation\ \fi Report \# \ReportYear-\ReportNumber
 }\par
 \vspace{24pt}
 
-% Title
 {\bfseries\fontsize{20}{24}\selectfont
 \makeatletter\@title\makeatother
 }\par
 \vspace{12pt}
 
-% Authors
 \ifx\AuthorLine\empty\else
 {\fontsize{12}{14}\selectfont \AuthorLine}\par
 \vspace{12pt}
 \fi
 
-% Cover image
 \ifx\CoverImage\empty\else
 \noindent\includegraphics[width=\textwidth]{\CoverImage}\par\vspace{-6pt}%
 \fi
 
-% Cover photo credit (right-justified, no gap)
 \ifx\CoverImageCredit\empty\else
 {\fontsize{8}{10}\selectfont\noindent\hfill \CoverImageCredit\par}%
 \fi
@@ -73,7 +63,6 @@ Manuscripts receive an appropriate level of peer review to ensure that the infor
 \vspace{12pt}
 Disclaimer: The use of trade names of commercial products in this report does not constitute endorsement or recommendation for use by the federal government.
 
-% Citation
 \vspace{12pt}
 \noindent\textbf{How to cite this report:}\par
 
@@ -81,7 +70,7 @@ Disclaimer: The use of trade names of commercial products in this report does no
 \noindent
 \ifx\CiteAuthorLine\empty LastName, F.\else \CiteAuthorLine\fi.\space
 \ifx\ReportYear\empty Year.\else \ReportYear.\fi\space
-\makeatletter{\begingroup\let\\\space\let\newline\space\@title\endgroup}\makeatother.\space
+\makeatletter\@title\makeatother.\space
 Report \ReportYear-\ReportNumber.\space
 U.S. Fish and Wildlife Service,\space
 \FwsProgram,\space
@@ -100,24 +89,20 @@ U.S. Fish and Wildlife Service,\space
 
 \ifx\CoverCaption\empty
   \ifx\CoverImageCredit\empty\else
-  \thispagestyle{empty}
   \vspace*{\fill}
   {%
     \setlength{\parskip}{0pt}%
-    \setlength{\parindent}{0pt}%
     {\bfseries\fontsize{12}{14}\selectfont ON THE COVER}\par
-    \vspace{3pt} % was 8pt
+    \vspace{3pt}
     \CoverImageCredit\par
   }%
   \fi
 \else
-  \thispagestyle{empty}
   \vspace*{\fill}
   {%
     \setlength{\parskip}{0pt}%
-    \setlength{\parindent}{0pt}%
     {\bfseries\fontsize{12}{14}\selectfont ON THE COVER}\par
-    \vspace{3pt} % was 8pt
+    \vspace{3pt}
     \CoverCaption\par
     \ifx\CoverImageCredit\empty\else
       \vspace{2pt}%

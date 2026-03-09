@@ -1,6 +1,7 @@
-title: "FWS Report (PDF)"
-version: "0.2.0"
+title: "FWS Report"
+version: "0.3.0"
 quarto-required: ">=1.4.0"
+
 contributes:
   formats:
     pdf:
@@ -11,8 +12,8 @@ contributes:
         - letterpaper
         - margin=1in
 
-      include-in-header: header.tex
-      include-before-body: frontmatter.tex
+      include-in-header: tex/header.tex
+      include-before-body: tex/frontmatter.tex
 
       toc: false
       number-sections: false
@@ -23,6 +24,18 @@ contributes:
       citecolor: black
 
       citeproc: true
-  
+
       filters:
-        - filter.lua
+        - lua/pdf.lua
+
+    docx:
+      inherits: docx
+      reference-doc: docx/reference.docx
+      title-block-style: none
+
+      toc: false
+      number-sections: false
+      citeproc: true
+
+      filters:
+        - lua/docx.lua
