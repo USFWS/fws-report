@@ -1,5 +1,5 @@
 -- lua/core.lua
--- Shared helpers for fws-report filters (pdf/docx)
+-- Shared helpers for fws-report filters (pdf/docx/html)
 
 local M = {}
 

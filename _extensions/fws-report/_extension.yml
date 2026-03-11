@@ -14,17 +14,13 @@ contributes:
 
       include-in-header: tex/header.tex
       include-before-body: tex/frontmatter.tex
-
       toc: false
       number-sections: false
-
       colorlinks: true
       linkcolor: black
       urlcolor: black
       citecolor: black
-
       citeproc: true
-
       filters:
         - lua/pdf.lua
 
@@ -32,10 +28,21 @@ contributes:
       inherits: docx
       reference-doc: docx/reference.docx
       title-block-style: none
-
       toc: false
       number-sections: false
       citeproc: true
-
       filters:
         - lua/docx.lua
+    
+    html:
+      title-block-style: none
+      toc: true
+      toc-location: right
+      code-fold: false
+      anchor-sections: true
+      embed-resources: true
+      theme:
+        - default
+        - css/fws-report.scss
+      filters:
+        - lua/html.lua

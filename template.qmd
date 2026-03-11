@@ -20,6 +20,7 @@ cover-caption: "Image caption goes here"
 doi: "10.1234/unique-doi"
 
 format:
+  fws-report-html: default
   fws-report-docx: default
   fws-report-pdf: default
     
@@ -27,53 +28,78 @@ bibliography: bib/bibliography.bib  # Path to bibliography files
 csl: bib/the-journal-of-wildlife-management.csl   # Path to reference style file
 ---
 
-## Abstract
+# Abstract
 
-Limit to 300 words. 
+Provide a concise summary of the report in 300 words or fewer. The abstract should briefly describe the purpose of the study, the study area, the methods used, the most important results, and the primary management or scientific implications. Write the abstract as a single stand-alone section that can be understood without referring to tables, figures, or the main text. Avoid citations unless absolutely necessary.
 
-## Keywords
+# Keywords
 
-analysis, interpretations, locations, methods, species (*alphabetical order*)
+List 4–8 keywords or short phrases that describe the main topics of the report. Include terms that will help others find the report through searches, such as focal species, habitat types, geographic area, methods, or management topics. Format keywords in lowercase unless proper nouns are used, and place them in alphabetical order.
+
+For example: 
+
+analysis, interpretations, locations, methods, species
 
 ---
 
-Introductory text, background material, appropriate literature review, and survey objectives. The default format for text body is double-spaced between paragraphs and single-space in the body of a paragraph. Do not indent the first line of a paragraph. Text is left-justified.
+# Introduction
+
+This section should introduce the report and provide enough context for readers to understand why the work was done. Include relevant background information, management context, prior monitoring or research, and the specific problem, question, or need being addressed. Summarize the most relevant literature and explain how the current work builds on or differs from previous efforts. End the introduction with a clear statement of study objectives, survey objectives, hypotheses, or management questions.
+
+The default format for the text body is double-spaced between paragraphs and single-spaced within a paragraph. Do not indent the first line of a paragraph. Text is left-justified. The default font is Univers Condensed for MS Word or Roboto Condensed for PDF and HTML.
+
+Use headings and subheadings to organize the document logically. Write in a clear, direct style appropriate for a scientific and management audience. Define abbreviations at first use, use scientific names where appropriate, and follow consistent terminology throughout the report.
 
 # Study Area
 
-A description of the study area. Maps or figures are recommended. Include a compass arrow, legend, and scale bar in maps.
+Describe the study area in enough detail for readers to understand the ecological and geographic setting of the work. This section may include location, extent, land ownership or administrative unit, habitat types, elevation, climate, hydrology, access, disturbance history, and other site characteristics relevant to the study objectives. If the report covers multiple sites, explain how sites differ and why those differences matter.
+
+Maps or figures are recommended. Maps should contain a north arrow, legend, scale bar, and any labels needed for interpretation. Include enough information in the caption so the figure can be understood on its own.
 
 # Methods
 
-A description of the methods... We used R [@R].
+Describe the methods in enough detail for another biologist to understand what was done and, when appropriate, to replicate the work. Organize this section with subheadings as needed, such as field methods, sampling design, laboratory methods, image processing, statistical analyses, or data management procedures.
+
+Include the dates of data collection, sampling units, sample sizes, equipment used, and any assumptions or limitations that affected the work. If standard protocols were followed, cite them. If methods were modified from prior studies or protocols, explain how and why.
+
+Describe analytical methods clearly, including software, packages, and version information when relevant. For example, analyses conducted in R can be cited as follows: We used R for our analysis [@R].
 
 # Results
 
-Results text...
+Present the findings clearly and objectively. Focus on what was observed or estimated rather than interpreting the meaning of the findings in detail; broader interpretation generally belongs in the Discussion. Organize results around the study objectives, hypotheses, response variables, or major themes.
+
+Reference tables and figures where appropriate, and avoid repeating every value in both the text and a table. Use the text to highlight the most important patterns, contrasts, and quantitative findings. Report uncertainty measures when relevant, such as standard errors, confidence intervals, credible intervals, or sample sizes.
 
 ## Subsection
 
-Some text
+Use subsections to organize related results. For example, separate sections may be used for detection rates, abundance estimates, habitat associations, vegetation metrics, survival estimates, or water quality summaries. Keep subsection titles informative and specific.
 
 ### Subsubsection
 
-Some text
+Use lower-level headings only when they improve readability. Avoid creating many very short sections. Group related content so the flow of the report remains easy to follow.
 
 # Discussion
 
-Discussion text...
+Interpret the results in relation to the study objectives, existing literature, and management context. Explain what the findings mean, how they compare with previous work, and whether they support or contradict expectations. Discuss strengths and limitations of the study, including important assumptions, uncertainty, potential sources of bias, and constraints on inference.
+
+Where appropriate, describe implications for conservation, refuge management, monitoring design, restoration, species status assessment, or future research. End with a concise conclusion or management takeaway that highlights the most important message of the report.
 
 # Acknowledgements
 
-Include your appreciation of logistical support, funding sources, field technicians, managers, and others who contributed to the work.
+Recognize individuals, programs, and organizations that contributed to the work but do not meet authorship criteria. This may include logistical support, funding sources, field technicians, data managers, pilots, reviewers, refuge staff, partner agencies, interns, contractors, and others who assisted with study design, permitting, fieldwork, analysis, or report preparation.
 
 # Data availability
 
-All the raw data used in your report should be publicly-accessible, unless legally exempt (e.g., FOIA-exempt). Recommended boilerplate language for this section could read “The data presented in this report are available at {your data’s ServCat URL}”.
+State where the data, metadata, code, and other supporting materials can be accessed. All data acquired by the FWS must be preserved in a FWS-approved repository. As of 2026, this includes [ServCat](https://ecos.fws.gov/ServCat/) and [ScienceBase](https://www.sciencebase.gov/catalog/). All raw data used in the report should be publicly accessible unless legally exempt, sensitive, or otherwise restricted. If some materials cannot be released, briefly explain why and provide access conditions if applicable. Authors are encouraged mint a [Digital Object Identifier (DOI)](https://www.doi.org/) for published datasets or other supporting materials whenever possible. If code or supplementary materials are archived separately, include those repositories or URLs as well.
+
+Recommended boilerplate language for this section:
+“The data presented in this report are available at {your data’s URL}.”
 
 \newpage
 
 # References
+
+Include all sources cited in the text and ensure every in-text citation appears in the reference list. Manage references with a `.bib` file when possible so citations and formatting are handled consistently and programmatically during rendering. Refer to the [Quarto guidance on citations](https://quarto.org/docs/authoring/citations.html) for more information.
 
 ::: {#refs}
 :::

@@ -1,18 +1,19 @@
-# FWS Report Template (PDF and DOCX) — Quarto extension
+# FWS Report Template Quarto extension
 
-This Quarto extension provides an unofficial U.S. Fish and Wildlife Service (FWS) report layout for **PDF** and **DOCX** output.
+This Quarto extension provides an *unofficial* U.S. Fish and Wildlife Service (FWS) report layout for **PDF**, **DOCX**, and **HTML** output.
 
 Highlights:
 
 - **Cover**: top banner (agency lines + logo), report number line, multi-line title, author list, cover image + right-justified credit, “How to cite this report” page, optional “On the Cover” page.
 - **Body**: conservative, Word-like heading and caption defaults.
 - **Tables/Figures**: table captions above; figure captions below.
-- **References**: citeproc-supported citations and bibliography rendering in both PDF and DOCX.
+- **References**: citeproc-supported citations and bibliography rendering in PDF, DOCX, and HTML.
 - **DOCX styling**: Word output uses the bundled `docx/reference.docx` file for paragraph and table styles.
+- **HTML styling**: HTML output uses the bundled stylesheet for a matching report structure and cover layout in the browser.
 
 ## Use
 
-In your QMD front matter, choose one or both formats.
+In your QMD front matter, choose one or more formats.
 
 ### PDF only
 
@@ -28,12 +29,20 @@ format:
   fws-report-docx: default
 ```
 
-### PDF and DOCX in the same document
+### HTML only
+
+```yaml
+format:
+  fws-report-html: default
+```
+
+### PDF, DOCX, and HTML in the same document
 
 ```yaml
 format:
   fws-report-pdf: default
   fws-report-docx: default
+  fws-report-html: default
 ```
 
 ## Render from the command line
@@ -48,6 +57,12 @@ Render a DOCX only:
 
 ```bash
 quarto render report.qmd --to fws-report-docx
+```
+
+Render an HTML only:
+
+```bash
+quarto render report.qmd --to fws-report-html
 ```
 
 Render both outputs in one call:

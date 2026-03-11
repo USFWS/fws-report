@@ -1,0 +1,367 @@
+/*-- scss:defaults --*/
+
+$fws-ink: #1b1f23;
+$fws-muted: #5f6b73;
+$fws-border: #cfd8dc;
+$fws-brand: #1e5b4f;
+$fws-brand-deep: #163f38;
+$body-color: $fws-ink;
+$link-color: $fws-ink;
+
+/*-- scss:rules --*/
+
+@font-face {
+  font-family: "Roboto Condensed";
+  src: url("_extensions/fws-report/fonts/RobotoCondensed-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Roboto Condensed";
+  src: url("_extensions/fws-report/fonts/RobotoCondensed-Italic.ttf") format("truetype");
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Roboto Condensed";
+  src: url("_extensions/fws-report/fonts/RobotoCondensed-Bold.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Roboto Condensed";
+  src: url("_extensions/fws-report/fonts/RobotoCondensed-BoldItalic.ttf") format("truetype");
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("_extensions/fws-report/fonts/Roboto-Bold.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+header#title-block-header,
+#title-block-header,
+.quarto-title-banner,
+.quarto-title-block {
+  display: none !important;
+}
+
+html,
+body {
+  font-family: "Roboto Condensed", Arial, sans-serif;
+  line-height: 1.65;
+}
+
+main.content,
+main#quarto-document-content {
+  max-width: 74rem;
+  margin: 0 auto;
+  padding: 0 1.25rem 4rem;
+  font-family: "Roboto Condensed", Arial, sans-serif;
+}
+
+.fws-cover {
+  margin: 1.25rem 0 2.5rem;
+  padding: 0;
+  font-family: "Roboto Condensed", Arial, sans-serif;
+}
+
+.fws-masthead {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1.25rem;
+  align-items: start;
+  border-top: 6px solid $fws-brand;
+  border-bottom: 2px solid $fws-brand;
+  padding: 0.5rem 0 0.55rem;
+}
+
+.fws-brand-text {
+  align-self: start;
+}
+
+.fws-brand-text > .fws-program-gap {
+  margin-top: 0.6rem;
+}
+
+.fws-program {
+  font-family: "Roboto Condensed", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.15;
+  margin-top: 0;
+  margin-bottom: 0.15rem;
+  font-weight: 700;
+  color: $fws-ink;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.fws-brand-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+}
+
+.fws-brand-logo img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-height: 3.8rem;
+  max-width: none;
+  object-fit: contain;
+}
+
+.fws-cover-body {
+  padding-top: 0.6rem;
+}
+
+.fws-eyebrow {
+  font-family: "Roboto Condensed", Arial, sans-serif;
+  color: $fws-ink;
+  font-size: 0.88rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  margin-bottom: 0.9rem;
+}
+
+.fws-title {
+  font-family: "Roboto Condensed", Arial, sans-serif;
+  margin: 2rem 0 0 0;
+  font-size: clamp(2rem, 4.5vw, 2.5rem) !important;
+  line-height: 1.06;
+  font-weight: 700;
+  max-width: 18ch;
+}
+
+.fws-title-line {
+  display: block;
+}
+
+.fws-author-line {
+  font-family: "Roboto Condensed", Arial, sans-serif;
+  margin-top: 1rem;
+  font-size: 1.05rem;
+  color: $fws-ink;
+}
+
+.fws-cover-grid {
+  margin-top: 1.75rem;
+  max-width: 42rem;
+}
+
+.fws-cover-figure {
+  margin: 0;
+}
+
+.fws-cover-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.fws-cover-figure figcaption {
+  margin-top: 0.1rem;
+  text-align: right;
+}
+
+.fws-cover-figure figcaption p {
+  margin: 0;
+  color: $fws-muted;
+}
+
+main.content .fws-cover-figure figcaption,
+main#quarto-document-content .fws-cover-figure figcaption,
+main.content .fws-cover-figure figcaption p,
+main#quarto-document-content .fws-cover-figure figcaption p {
+  font-size: 0.7rem !important;
+  line-height: 1.2;
+}
+
+main.content > :first-child,
+main#quarto-document-content > :first-child {
+  margin-top: 0;
+}
+
+main.content h1,
+main.content h2,
+main.content h3,
+main.content h4,
+main#quarto-document-content h1,
+main#quarto-document-content h2,
+main#quarto-document-content h3,
+main#quarto-document-content h4 {
+  color: $fws-brand-deep;
+  letter-spacing: -0.01em;
+}
+
+main.content h1:not(.fws-title),
+main#quarto-document-content h1:not(.fws-title) {
+  font-family: "Roboto", "Roboto Condensed", Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1.35rem;
+  margin-top: 2.2rem;
+  margin-bottom: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+main.content h2,
+main#quarto-document-content h2 {
+  font-family: "Roboto Condensed", Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  margin-top: 2rem;
+  margin-bottom: 0.55rem;
+  padding-top: 0;
+  border-top: none;
+  border-bottom: none;
+}
+
+main.content h3,
+main#quarto-document-content h3 {
+  font-family: "Roboto Condensed", Arial, sans-serif;
+  font-weight: 400;
+  font-size: 1.1rem;
+  font-style: italic;
+  margin-top: 1.5rem;
+  margin-bottom: 0.45rem;
+}
+
+main.content h4,
+main#quarto-document-content h4 {
+  font-family: "Roboto Condensed", Arial, sans-serif;
+  font-weight: 700;
+}
+
+main.content p,
+main.content li,
+main.content td,
+main.content th,
+main#quarto-document-content p,
+main#quarto-document-content li,
+main#quarto-document-content td,
+main#quarto-document-content th {
+  font-family: "Roboto Condensed", Arial, sans-serif;
+  font-size: 1.02rem;
+}
+
+main.content a,
+main#quarto-document-content a {
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.13em;
+}
+
+main.content blockquote,
+main#quarto-document-content blockquote {
+  border-left: 0.28rem solid $fws-brand;
+  color: $fws-muted;
+  padding-left: 1rem;
+  margin-left: 0;
+}
+
+main.content hr,
+main#quarto-document-content hr {
+  border: 0;
+  border-top: 1px solid $fws-border;
+  margin: 2rem 0;
+}
+
+main.content table,
+main#quarto-document-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.25rem 0;
+}
+
+main.content thead th,
+main#quarto-document-content thead th {
+  border-bottom: 2px solid $fws-brand-deep;
+}
+
+main.content tbody tr,
+main#quarto-document-content tbody tr {
+  border-bottom: 1px solid $fws-border;
+}
+
+main.content th,
+main.content td,
+main#quarto-document-content th,
+main#quarto-document-content td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.55rem 0.6rem;
+}
+
+main.content img,
+main#quarto-document-content img {
+  height: auto;
+}
+
+main.content figure,
+main#quarto-document-content figure {
+  margin: 1.5rem 0;
+}
+
+main.content figcaption,
+main.content .figure-caption,
+main#quarto-document-content figcaption,
+main#quarto-document-content .figure-caption {
+  font-family: "Roboto Condensed", Arial, sans-serif;
+  color: $fws-muted;
+  font-size: 0.92rem;
+}
+
+#refs,
+.references {
+  margin-top: 1.5rem;
+}
+
+#refs .csl-entry,
+.references .csl-entry {
+  padding-left: 2rem;
+  text-indent: -2rem;
+  margin-bottom: 0.65rem;
+}
+
+@media (max-width: 900px) {
+  .fws-title {
+    max-width: none;
+  }
+}
+
+@media (max-width: 640px) {
+  main.content,
+  main#quarto-document-content {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .fws-masthead {
+    grid-template-columns: 1fr;
+  }
+
+  .fws-brand-logo img {
+    max-width: 4rem;
+  }
+}
+
+@media print {
+  .fws-cover-figure img {
+    box-shadow: none;
+  }
+}
