@@ -166,6 +166,39 @@ local function author_line_text(meta)
   return authors.author_line or ""
 end
 
+local function add_font_dependency()
+  quarto.doc.add_html_dependency({
+    name = "fws-report-fonts",
+    version = "1.0.0",
+    stylesheets = { "../css/fws-fonts.css" }
+  })
+
+  quarto.doc.attach_to_dependency("fws-report-fonts", {
+    path = "../fonts/RobotoCondensed-Regular.ttf",
+    name = "RobotoCondensed-Regular.ttf"
+  })
+
+  quarto.doc.attach_to_dependency("fws-report-fonts", {
+    path = "../fonts/RobotoCondensed-Italic.ttf",
+    name = "RobotoCondensed-Italic.ttf"
+  })
+
+  quarto.doc.attach_to_dependency("fws-report-fonts", {
+    path = "../fonts/RobotoCondensed-Bold.ttf",
+    name = "RobotoCondensed-Bold.ttf"
+  })
+
+  quarto.doc.attach_to_dependency("fws-report-fonts", {
+    path = "../fonts/RobotoCondensed-BoldItalic.ttf",
+    name = "RobotoCondensed-BoldItalic.ttf"
+  })
+
+  quarto.doc.attach_to_dependency("fws-report-fonts", {
+    path = "../fonts/Roboto-Bold.ttf",
+    name = "Roboto-Bold.ttf"
+  })
+end
+
 local function render_cover(meta)
   local defaults = core.defaults(meta)
 
@@ -271,6 +304,8 @@ return {
       if not quarto.doc.is_format("html") then
         return meta
       end
+
+      add_font_dependency()
       meta["title-block-style"] = pandoc.MetaString("none")
       return meta
     end,

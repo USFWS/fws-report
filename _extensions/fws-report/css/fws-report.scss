@@ -10,46 +10,6 @@ $link-color: $fws-ink;
 
 /*-- scss:rules --*/
 
-@font-face {
-  font-family: "Roboto Condensed";
-  src: url("_extensions/fws-report/fonts/RobotoCondensed-Regular.ttf") format("truetype");
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Roboto Condensed";
-  src: url("_extensions/fws-report/fonts/RobotoCondensed-Italic.ttf") format("truetype");
-  font-style: italic;
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Roboto Condensed";
-  src: url("_extensions/fws-report/fonts/RobotoCondensed-Bold.ttf") format("truetype");
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Roboto Condensed";
-  src: url("_extensions/fws-report/fonts/RobotoCondensed-BoldItalic.ttf") format("truetype");
-  font-style: italic;
-  font-weight: 700;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Roboto";
-  src: url("_extensions/fws-report/fonts/Roboto-Bold.ttf") format("truetype");
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-}
-
 header#title-block-header,
 #title-block-header,
 .quarto-title-banner,

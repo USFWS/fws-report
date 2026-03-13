@@ -11,7 +11,6 @@ contributes:
       geometry:
         - letterpaper
         - margin=1in
-
       include-in-header: tex/header.tex
       include-before-body: tex/frontmatter.tex
       toc: false
